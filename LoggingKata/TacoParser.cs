@@ -23,7 +23,7 @@
 
             // TODO: Grab the latitude from your array at index 0
             // You're going to need to parse your string as a `double`
-            // which is similar to parsing a string as an `int`
+            
             
             
             // TODO: Grab the longitude from your array at index 1
