@@ -26,7 +26,7 @@ namespace LoggingKata
 
             // Create a new instance of your TacoParser class
             var parser = new TacoParser();
-
+            
             // Use the Select LINQ method to parse every line in lines collection
             var locations = lines.Select(parser.Parse).ToArray();
 
