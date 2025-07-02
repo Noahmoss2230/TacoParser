@@ -19,7 +19,17 @@ namespace LoggingKata
 
             // Use File.ReadAllLines(path) to grab all the lines from your csv file. 
             // Optional: Log an error if you get 0 lines and a warning if you get 1 line
-            var lines = File.ReadAllLines(csvPath);
+            string [] lines = File.ReadAllLines(csvPath);
+
+            if (lines.Length == 0)
+            {
+                logger.LogError("file has no input");
+            }
+
+            if (lines.Length == 1)
+            {
+                logger.LogError("file only has one line of input");
+            }
 
             // This will display the first item in your lines array
             logger.LogInfo($"Lines: {lines[0]}");
@@ -35,11 +45,36 @@ namespace LoggingKata
 
             // TODO: Create two `ITrackable` variables with initial values of `null`. 
             // These will be used to store your two Taco Bells that are the farthest from each other.
+            ITrackable tacoBell1 = null;
+            ITrackable tacoBell2 = null;
+            double distance = 0;
             
             // TODO: Create a `double` variable to store the distance
 
             // TODO: Add the Geolocation library to enable location comparisons: using GeoCoordinatePortable;
             // Look up what methods you have access to within this library.
+            for (int i = 0; i < locations.Length; i++)
+            {
+                var locA = locations[i];
+                var corA = new GeoCoordinate();
+                corA.Latitude = locA.Location.Latitude;
+                corA.Longitude = locA.Location.Longitude;
+
+                for (int j = 0; j < locations.Length; j++)
+                {
+                    var locB = locations[j];
+                    var corB = new GeoCoordinate();
+                    corB.Latitude = locB.Location.Latitude;
+                    corB.Longitude = locB.Location.Longitude;
+
+                    if (corA.GetDistanceTo(corB) > distance)
+                    {
+                        distance = corA.GetDistanceTo(corB);
+                        tacoBell1 = locA;
+                        tacoBell2 = locB;
+                    }
+                }
+            }
 
             // NESTED LOOPS SECTION----------------------------
             
@@ -66,7 +101,7 @@ namespace LoggingKata
             // Display these two Taco Bell locations to the console.
 
 
-            
+            logger.LogInfo($"{tacoBell1.Name} and {tacoBell2.Name} are the farthest apart");
         }
     }
 }
