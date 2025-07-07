@@ -28,7 +28,7 @@ namespace LoggingKata
 
             if (lines.Length == 1)
             {
-                logger.LogError("file only has one line of input");
+                logger.LogWarning("file only has one line of input");
             }
 
             // This will display the first item in your lines array
